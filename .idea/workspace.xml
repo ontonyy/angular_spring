@@ -6,6 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="17616fce-6b12-430d-9160-07e1b35d0ed4" name="Changes" comment="Create simple angular project from technology website">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/src/app/mock-heroes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/src/app/services/hero.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/src/app/services/hero.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/angular_frontend/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/angular_frontend/src/main.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,17 +34,29 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/ontony/Desktop/myself/codes/angular_spring/angular_tour_heroes",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/ontony/Desktop/myself/codes/angular_spring/angular_frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/angular_tour_heroes" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="ng generate component navbar" />
+      <command value="ng serve --open" />
+    </option>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -45,7 +66,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1674891356644</updated>
-      <workItem from="1674891357666" duration="833000" />
+      <workItem from="1674891357666" duration="573000" />
+      <workItem from="1674892255432" duration="3267000" />
     </task>
     <task id="LOCAL-00001" summary="Create simple angular project from technology website">
       <created>1674891511799</created>
@@ -55,11 +77,11 @@
       <updated>1674891511799</updated>
     </task>
     <task id="LOCAL-00002" summary="Create simple angular project from technology website">
-      <created>1674892215757</created>
+      <created>1674895068590</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1674892215757</updated>
+      <updated>1674895068590</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
