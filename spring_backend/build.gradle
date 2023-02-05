@@ -1,33 +1,23 @@
-plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.2'
-	id 'io.spring.dependency-management' version '1.1.0'
+buildscript {
+    repositories {
+        maven {
+            jcenter()
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${spring_boot_gradle_plugin_version}")
+    }
 }
 
-group = 'com.ontony'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+allprojects {
+    tasks.withType(Test) {
+        jvmArgs "-Xmx2g"
+    }
 }
 
-repositories {
-	mavenCentral()
-}
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
+apply from: "${project.rootDir}/gradle/config/core.gradle"
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+
+task build(dependsOn: ['app:build'])

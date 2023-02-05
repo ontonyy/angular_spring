@@ -1,0 +1,11 @@
+apply from: "${project.rootDir}/gradle/config/microservice.gradle"
+
+dependencies {
+    implementation(project(":app:hero-flow"))
+    implementation(project(":app:user-flow"))
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+    implementation 'org.liquibase:liquibase-core:4.17.1'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+}

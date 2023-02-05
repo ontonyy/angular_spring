@@ -1,0 +1,46 @@
+version: "3.7" # optional since v1.27.0
+services:
+
+  #  # Spring backend service
+  #  spring-backend:
+  #    image: spring-backend:latest
+  #    build:
+  #      context: .
+  #      dockerfile: Dockerfile
+  #    container_name: spring_backend
+  #    ports:
+  #      - '8080:8080'
+  #    restart: unless-stopped
+  #    depends_on:
+  #      - db_postgres
+  #    environment:
+  #      - SPRING_DATASOURCE_URL=jdbc:postgresql://db_postgres:5432/big_eggs
+  #      - SPRING_DATASOURCE_USERNAME=root
+  #      - SPRING_DATASOURCE_PASSWORD=123456
+  #      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  #
+  #  # Angular frontend service
+  #  angular-frontend:
+  #    image: angular-frontend:latest
+  #    restart: unless-stopped
+  #    build:
+  #      context: ../angular_frontend/
+  #      dockerfile: Dockerfile
+  #    ports:
+  #      - "4200:4200"
+  #    volumes:
+  #      - ../angular_frontend//node_modules:/usr/app/node_modules
+  #      - ../angular_frontend/:/usr/app
+
+  # MySQL database
+  db_mysql:
+    image: mysql:latest
+    container_name: db_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: spring_backend
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: always
