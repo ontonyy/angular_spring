@@ -1,0 +1,13 @@
+<h2>Initial Registration</h2>
+<div>
+  <label for="username">Username: </label>
+  <input id="username" [(ngModel)]="userName" placeholder="davai write"/><br><br>
+  <label for="interest">Interest: </label>
+  <select id="interest" [(ngModel)]="userInterest">
+    <option *ngFor="let i of interests" [ngValue]="i">{{i}}</option>
+  </select><br><br>
+
+  <button type="button" class="add-button" (click)="register(userName, userInterest);">
+    Register
+  </button>
+</div>

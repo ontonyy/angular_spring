@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { Hero } from '../hero';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HeroService {
-  private heroesUrl = 'api/heroes';  // URL to web api
+  private heroUrl = 'http://localhost:8080/api/hero';  // URL to Spring Backend
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -19,19 +17,18 @@ export class HeroService {
     private messageService: MessageService) { }
 
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
+    return this.http.get<Hero[]>(this.heroUrl + "/all")
       .pipe(
         tap(_ => this.log('fetched heroes')),
         catchError(this.handleError<Hero[]>('getHeroes', []))
       );
   }
 
-  getHero(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/${id}`;
+  getHero(name: string): Observable<Hero> {
 
-    return this.http.get<Hero>(url).pipe(
-      tap(_ => this.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<Hero>(`getHero id=${id}`))
+    return this.http.get<Hero>(`${this.heroUrl}/${name}`).pipe(
+      tap(_ => this.log(`fetched hero with:${name}`)),
+      catchError(this.handleError<Hero>(`getHero`))
     );
   }
 
@@ -39,13 +36,6 @@ export class HeroService {
     this.messageService.add(`HeroService: ${message}`);
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); // log to console instead
@@ -56,39 +46,63 @@ export class HeroService {
     };
   }
 
-  updateHero(hero: Hero): Observable<any> {
-    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap(_ => this.log(`updated hero id=${hero.id}`)),
+  update(hero: Hero, updateHero: Hero): Observable<any> {
+    return this.http.put(this.heroUrl + "/update", { hero, updateHero }, this.httpOptions).pipe(
+      tap(_ => this.log(`updated hero name=${hero.name}`)),
       catchError(this.handleError<any>('updateHero'))
     );
   }
 
-  addHero(hero: Hero): Observable<Hero> {
-    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
+  create(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroUrl, hero, this.httpOptions).pipe(
+      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.name}`)),
       catchError(this.handleError<Hero>('addHero'))
     );
   }
 
-  deleteHero(id: number): Observable<Hero> {
-    const url = `${this.heroesUrl}/${id}`;
+  delete(hero: Hero): Observable<Hero> {
+    let queryParams = new HttpParams()
+      .append('name', hero.name)
+      .append('power', hero.power);
 
-    return this.http.delete<Hero>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`deleted hero id=${id}`)),
+    return this.http.delete<Hero>(`${this.heroUrl}`, {params: queryParams}).pipe(
+      tap(_ => this.log(`deleted hero with ${hero}`)),
       catchError(this.handleError<Hero>('deleteHero'))
     );
   }
 
-  searchHeroes(term: string): Observable<Hero[]> {
+  search(term: string): Observable<Hero[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
       return of([]);
     }
-    return this.http.get<Hero[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+    return this.http.get<Hero[]>(`${this.heroUrl}/search/${term}`).pipe(
       tap(x => x.length ?
         this.log(`found heroes matching "${term}"`) :
         this.log(`no heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
+  }
+
+  getBestHeroes(size: number) {
+    let queryParams = new HttpParams()
+      .append('size', size)
+
+    return this.http.get<Hero[]>(this.heroUrl + "/best", {params: queryParams})
+      .pipe(
+        tap(_ => this.log('fetched best heroes')),
+        catchError(this.handleError<Hero[]>('getBestHeroes', []))
+      );
+  }
+  getByPagination(size: number, page: number) {
+    let queryParams = new HttpParams()
+      .append('size', size)
+      .append('page', page)
+
+    return this.http.get<Hero[]>(this.heroUrl + "/all/paged", {params: queryParams})
+      .pipe(
+        tap(_ => this.log(`fetched with pagination(${page} - ${size}) heroes`)),
+        catchError(this.handleError<Hero[]>('getByPagination', []))
+      );
   }
 }

@@ -1,10 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
-        <li class="breadcrumb-item"><a routerLink="/heroes">Heroes</a></li>
-      </ol>
-    </nav>
+<nav class="navbar fixed-top bg-secondary navbar-expand text-md-start text-white" style="background-color: rgba(0, 0, 0, 0.2);">
+  <h2 class="text-white">Hero</h2>
+  <div  class="collapse navbar-collapse justify-content-center"  id="navbarCenteredExample">
+    <ul class="navbar-nav mb-2 mb-lg-0">
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link text-white" routerLink="/dashboard">
+          <div>
+            <i class="fa fa-home mb-1" style="color: white"></i>
+          </div>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link text-white" routerLink="/heroes">
+          <div>
+            <i class="fa fa-address-book fa-lg mb-1" style="color: white"></i>
+          </div>
+          Heroes
+        </a>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link text-white" routerLink="/messages">
+          <div>
+            <i class="fa fa-envelope fa-lg mb-1" style="color: white"></i>
+          </div>
+          Messages
+        </a>
+      </li>
+    </ul>
   </div>
+  <h2 class="text-white">Tour</h2>
 </nav>

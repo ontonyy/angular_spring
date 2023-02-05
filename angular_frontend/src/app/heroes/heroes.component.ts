@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../services/hero.service';
 import { MessageService } from '../services/message.service';
+import {HeroesStorageService} from "../services/heroes-storage.service";
+import * as http from "http";
 
 @Component({
   selector: 'app-heroes',
@@ -15,33 +17,39 @@ export class HeroesComponent implements OnInit {
 
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService, private messageService: MessageService) { }
+  constructor(private heroService: HeroService, private messageService: MessageService, private heroesStorage: HeroesStorageService) { }
 
   ngOnInit(): void {
-    this.getHeroes();
+    this.heroes = this.heroesStorage.getHeroes()
   }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+    this.messageService.add(`HeroesComponent: Selected hero id=${hero.name}`);
   }
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
-  }
-
-  add(name: string): void {
+  add(name: string, newPower: string): void {
     name = name.trim();
+    const power = Number(newPower)
+
     if (!name) { return; }
-    this.heroService.addHero({ name } as Hero)
+    this.addHeroToStorage({name, power} as Hero)
+    this.heroService.create({ name, power } as Hero)
       .subscribe(hero => {
-        this.heroes.push(hero);
+        console.log(hero)
       });
+  }
+
+  addHeroToStorage(hero: Hero) {
+    this.heroesStorage.addHero(hero)
+    this.heroes = this.heroesStorage.getHeroes()
+    console.log(this.heroes)
   }
 
   delete(hero: Hero): void {
     this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero.id).subscribe();
+    this.heroService.delete(hero).subscribe();
+    this.heroesStorage.deleteHero(hero);
+    this.heroes = this.heroesStorage.getHeroes()
   }
 }

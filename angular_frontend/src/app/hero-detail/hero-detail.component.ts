@@ -10,7 +10,9 @@ import { HeroService } from '../services/hero.service';
   styleUrls: ['./hero-detail.component.css']
 })
 export class HeroDetailComponent {
-  @Input() hero?: Hero;
+  updateHero?: Hero;
+  oldName?: string
+  oldPower?: Number
 
   constructor(
     private route: ActivatedRoute,
@@ -23,9 +25,13 @@ export class HeroDetailComponent {
   }
 
   getHero(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
+    const name = this.route.snapshot.paramMap.get('name');
+    this.heroService.getHero(name as string)
+      .subscribe(hero => {
+        this.oldName = hero.name
+        this.oldPower = hero.power
+        this.updateHero = hero
+      });
   }
 
   goBack(): void {
@@ -33,8 +39,8 @@ export class HeroDetailComponent {
   }
 
   save(): void {
-    if (this.hero) {
-      this.heroService.updateHero(this.hero)
+    if (this.updateHero) {
+      this.heroService.update({"name": this.oldName, "power": this.oldPower} as Hero, this.updateHero as Hero)
         .subscribe(() => this.goBack());
     }
   }
